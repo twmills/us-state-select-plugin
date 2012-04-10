@@ -49,13 +49,13 @@ module ActionView
       def to_us_state_select_tag(options, html_options)
         html_options = html_options.stringify_keys
         add_default_name_and_id(html_options)
-        content_tag("select", add_options(us_state_options_for_select(value(object), options), options, value(object)), html_options)
+        content_tag("select", add_options(us_state_options_for_select(value(object), options).html_safe, options, value(object)), html_options).html_safe
       end
     end
     
     class FormBuilder
       def us_state_select(method, us_state_options = {}, options = {}, html_options = {})
-        @template.us_state_select(@object_name, method, us_state_options, options.merge(:object => @object), html_options)
+        @template.us_state_select(@object_name, method, us_state_options, options.merge(:object => @object), html_options).html_safe
       end
     end
   end
