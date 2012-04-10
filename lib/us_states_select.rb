@@ -15,19 +15,19 @@ module ActionView
         states_label = options[:show] if options[:show].is_a?(Proc)
 
         if options[:priority]
-          state_options += options_for_select(US_STATES.select(&priority_states).collect(&states_label), selected)
-          state_options += "<option value=\"\" disabled=\"disabled\">-------------</option>\n"
+          state_options += options_for_select(US_STATES.select(&priority_states).collect(&states_label), selected).html_safe
+          state_options += "<option value=\"\" disabled=\"disabled\">-------------</option>\n".html_safe
           
           selected = nil if options[:priority].include?(selected)
         end
 
-        state_options += options_for_select(US_STATES.collect(&states_label), selected)
+        state_options += options_for_select(US_STATES.collect(&states_label), selected).html_safe
         state_options
       end
 
       def us_state_select(object, method, us_state_options = {}, options = {}, html_options = {})
         options.merge!(us_state_options)
-        InstanceTag.new(object, method, self, options.delete(:object)).to_us_state_select_tag(options, html_options)
+        InstanceTag.new(object, method, self, options.delete(:object)).to_us_state_select_tag(options, html_options).html_safe
       end
 
       private
